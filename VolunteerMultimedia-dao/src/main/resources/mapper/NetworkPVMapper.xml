@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bao.dao.NetworkPVMapper">
+
+    <resultMap id="BaseResultMap" type="com.bao.entity.NetworkPV">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="src" jdbcType="VARCHAR" property="src" />
+        <result column="img" jdbcType="VARCHAR" property="img" />
+    </resultMap>
+
+    <insert id="insertV">
+        insert into networkPV (name, src, img)
+        values (#{name,jdbcType=VARCHAR},
+                #{src,jdbcType=VARCHAR},
+                #{img,jdbcType=VARCHAR})
+     </insert>
+
+
+
+</mapper>

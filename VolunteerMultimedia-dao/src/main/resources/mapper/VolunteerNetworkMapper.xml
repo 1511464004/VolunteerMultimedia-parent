@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bao.dao.VolunteerNetworkMapper">
+
+    <resultMap id="BaseResultMap" type="com.bao.entity.VolunteerNetwork">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="href" jdbcType="VARCHAR" property="href" />
+    </resultMap>
+
+    <resultMap id="NewsCResultMap" type="com.bao.entity.NewsC">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="href" jdbcType="VARCHAR" property="href" />
+        <result column="date" jdbcType="VARCHAR" property="date" />
+    </resultMap>
+
+    <resultMap id="HotNewsResultMap" type="com.bao.entity.HotNews">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="href" jdbcType="VARCHAR" property="href" />
+    </resultMap>
+    <resultMap id="HotPhotoResultMap" type="com.bao.entity.HotPhoto">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="href" jdbcType="VARCHAR" property="href" />
+        <result column="img" jdbcType="VARCHAR" property="img" />
+    </resultMap>
+
+
+
+    <select id="findVolunteerNetworkList" resultMap="BaseResultMap">
+        select * from volunteerNetwork order by id
+    </select>
+
+    <select id="findNewsCList" resultMap="NewsCResultMap">
+        select * from newsC order by id
+    </select>
+
+    <select id="findHotNewsList" resultMap="HotNewsResultMap">
+        select * from hotNews order by id
+    </select>
+
+    <select id="findHotPhotoList" resultMap="HotPhotoResultMap">
+        select * from hotPhoto order by id
+    </select>
+
+
+</mapper>

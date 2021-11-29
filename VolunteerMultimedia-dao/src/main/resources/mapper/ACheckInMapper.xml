@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bao.dao.ACheckInMapper">
+
+    <resultMap id="BaseResultMap" type="com.bao.entity.ACheckIn">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="a_id" jdbcType="INTEGER" property="a_id" />
+        <result column="v_id" jdbcType="INTEGER" property="v_id" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="createDate" jdbcType="DATE" property="createDate" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+    </resultMap>
+
+    <!-- 关系 -->
+    <resultMap id="ACheckInAVResultMap" type="com.bao.entity.ACheckIn" extends="BaseResultMap">
+        <association property="volunteer" javaType="com.bao.entity.Volunteer">
+            <id column="id" jdbcType="INTEGER" property="id" />
+            <result column="loginName" jdbcType="VARCHAR" property="loginName" />
+        </association>
+        <association property="vActivity" javaType="com.bao.entity.VActivity">
+            <id column="id" jdbcType="INTEGER" property="id" />
+            <result column="name" jdbcType="VARCHAR" property="name" />
+        </association>
+    </resultMap>
+
+    <insert id="addACheckIn">
+        insert into a_check_in (a_id, v_id, status, createDate, remark)
+        values (#{a_id,jdbcType=INTEGER}, #{v_id,jdbcType=INTEGER}, #{status,jdbcType=INTEGER},
+          #{createDate,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+     </insert>
+
+    <update id="update">
+        update a_check_in
+        <set>
+            <if test="a_id != null">
+                a_id = #{a_id,jdbcType=INTEGER},
+            </if>
+            <if test="v_id != null">
+                v_id = #{v_id,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createDate != null">
+                createDate = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="findACheckInList" resultMap="ACheckInAVResultMap">
+        select t1.*,t2.name,t3.loginName from a_check_in t1
+        inner join v_activity t2 on t2.id = t1.`a_id`
+        inner join volunteer t3 on t3.id = t1.`v_id`
+        <where>
+            <if test="name != null and name != ''">
+                and t2.name like concat('%',#{name},'%')
+            </if>
+            <if test="loginName != null and loginName != ''">
+                and t3.loginName like concat('%',#{loginName},'%')
+            </if>
+            <if test="status!=null and status != ''">
+                and t1.status = #{status}
+            </if>
+            <if test="startDate != null">
+                <![CDATA[ and t1.createDate >= #{startDate} ]]>
+            </if>
+            <if test="endDate != null">
+                <![CDATA[ and t1.createDate <= #{endDate} ]]>
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

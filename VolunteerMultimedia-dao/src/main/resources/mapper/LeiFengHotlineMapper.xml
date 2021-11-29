@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bao.dao.LeiFengHotlineMapper">
+
+    <resultMap id="BaseResultMap" type="com.bao.entity.LeiFengHotline">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="href" jdbcType="VARCHAR" property="href" />
+    </resultMap>
+
+
+    <select id="findLeiFengHotlineList" resultMap="BaseResultMap">
+        select * from leiFengHotline order by id
+    </select>
+
+
+</mapper>
